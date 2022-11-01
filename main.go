@@ -70,7 +70,7 @@ func getBody(w http.ResponseWriter, r *http.Request) {
 			w.Header().Add("Content-Type", "application/json")
 			w.WriteHeader(200)
 			log.Println("User created")
-			if err := json.NewEncoder(w).Encode("user created"); err != nil {
+			if err := json.NewEncoder(w).Encode("user created "); err != nil {
 				panic(err)
 			}
 		}
