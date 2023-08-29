@@ -31,8 +31,8 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o go-app
 # But we can document in the Dockerfile what ports
 # the application is going to listen on by default.
 # https://docs.docker.com/engine/reference/builder/#expose
-COPY --chown=185 go-app ./
-COPY --chown=185 config config
+RUN chown 185 go-app
+RUN chown 185 config
 
 USER 1000
 
