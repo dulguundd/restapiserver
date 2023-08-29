@@ -31,7 +31,7 @@ func main() {
 	router.HandleFunc("/home", home).Methods(http.MethodGet)
 	router.HandleFunc("/api/1.0/users", getBody).Methods(http.MethodPost)
 
-	log.Fatal(http.ListenAndServe("0.0.0.0:80", router))
+	log.Fatal(http.ListenAndServe("0.0.0.0:8080", router))
 }
 
 func home(w http.ResponseWriter, r *http.Request){
