@@ -26,7 +26,7 @@ COPY --chown=185 config config
 
 USER 1000
 
-EXPOSE 8000
+EXPOSE 8080
 
 # Run
 CMD ["./go-app"]
