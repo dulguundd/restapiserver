@@ -2,12 +2,13 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
+	"fmt"
 	"github.com/gorilla/mux"
 	"log"
+	"net"
 	"net/http"
 	"strings"
-	"net"
-	"errors"
 )
 
 type NewUserRequest struct {
@@ -34,11 +35,13 @@ func main() {
 	log.Fatal(http.ListenAndServe("0.0.0.0:8080", router))
 }
 
-func home(w http.ResponseWriter, r *http.Request){
+func home(w http.ResponseWriter, r *http.Request) {
 	ip, _ := getIP(r)
+	headers := r.Header
+	headersAsString := headersToString(headers)
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(200)
-	log.Println("handler routing /home get request" + ip)
+	log.Println("handler routing /home get request" + ip + ", " + headersAsString)
 	responseBody := "Hello world! /home IP Address: " + ip
 	if err := json.NewEncoder(w).Encode(responseBody); err != nil {
 		panic(err)
@@ -127,4 +130,16 @@ func getIP(r *http.Request) (string, error) {
 	}
 
 	return "", errors.New("IP not found")
+}
+
+func headersToString(headers http.Header) string {
+	var headerStrings []string
+
+	for key, values := range headers {
+		for _, value := range values {
+			headerStrings = append(headerStrings, fmt.Sprintf("%s: %s", key, value))
+		}
+	}
+
+	return strings.Join(headerStrings, "\n")
 }
