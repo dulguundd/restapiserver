@@ -75,7 +75,14 @@ func (h *Handlers) MongoTest(w http.ResponseWriter, _ *http.Request) {
 
 func (h *Handlers) MongoTestById(w http.ResponseWriter, _ *http.Request) {
 	startTime := time.Now()
-	result, _ := h.service.MongoById()
+	result, err := h.service.MongoById()
+	if err != nil {
+		w.Header().Add("Content-Type", "application/json")
+		w.WriteHeader(500)
+		if err := json.NewEncoder(w).Encode(err.Message); err != nil {
+			panic(err)
+		}
+	}
 	logger.Info("This is driving log: " + result.Id)
 	endTime := time.Now()
 	executionTime := endTime.Sub(startTime)

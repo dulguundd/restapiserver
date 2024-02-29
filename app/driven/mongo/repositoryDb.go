@@ -67,7 +67,7 @@ func (d RepositoryDb) Query() *errs.AppError {
 	return nil
 }
 
-func (d RepositoryDb) QueryById() (dto.ProductOffering, *errs.AppError) {
+func (d RepositoryDb) QueryById() (*dto.ProductOffering, *errs.AppError) {
 	logger.Info("Id Query worked")
 
 	// Define the database and collection
@@ -86,6 +86,7 @@ func (d RepositoryDb) QueryById() (dto.ProductOffering, *errs.AppError) {
 	err := collection.FindOne(context.Background(), filter).Decode(&results)
 	if err != nil {
 		log.Fatal(err)
+		return nil, errs.NewUnexpectedError(err.Error())
 	}
 
 	// Print the results
@@ -94,7 +95,7 @@ func (d RepositoryDb) QueryById() (dto.ProductOffering, *errs.AppError) {
 	//	fmt.Printf("Id: %s, Name: %d, Status: %s\n", result.Id, result.Name, result.LifecycleStatus)
 	//}
 
-	return results, nil
+	return &results, nil
 }
 
 func NewRepositoryDb(dbClient *mongo.Client) RepositoryDb {

@@ -7,5 +7,5 @@ import (
 
 type Repository interface {
 	Query() *errs.AppError
-	QueryById() (dto.ProductOffering, *errs.AppError)
+	QueryById() (*dto.ProductOffering, *errs.AppError)
 }

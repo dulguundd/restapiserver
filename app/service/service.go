@@ -9,7 +9,7 @@ import (
 
 type Service interface {
 	MongoList() *errs.AppError
-	MongoById() (dto.ProductOffering, *errs.AppError)
+	MongoById() (*dto.ProductOffering, *errs.AppError)
 }
 
 type DefaultService struct {
@@ -21,9 +21,12 @@ func (s DefaultService) MongoList() *errs.AppError {
 	return nil
 }
 
-func (s DefaultService) MongoById() (dto.ProductOffering, *errs.AppError) {
+func (s DefaultService) MongoById() (*dto.ProductOffering, *errs.AppError) {
 	logger.Info("This is service level log")
-	result, _ := s.repo.QueryById()
+	result, err := s.repo.QueryById()
+	if err != nil {
+		return nil, err
+	}
 	return result, nil
 }
 
