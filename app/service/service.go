@@ -2,6 +2,7 @@ package service
 
 import (
 	"github.com/dulguundd/logError-lib/errs"
+	"github.com/dulguundd/logError-lib/logger"
 	"restAPIServer/app/driven/mongo"
 )
 
@@ -20,6 +21,7 @@ func (s DefaultService) MongoList() *errs.AppError {
 }
 
 func (s DefaultService) MongoById() *errs.AppError {
+	logger.Info("Id Query worked")
 	_ = s.repo.QueryById()
 	return nil
 }

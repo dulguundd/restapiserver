@@ -3,7 +3,6 @@ package mongo
 import (
 	"context"
 	"github.com/dulguundd/logError-lib/errs"
-	"github.com/dulguundd/logError-lib/logger"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -65,7 +64,7 @@ func (d RepositoryDb) Query() *errs.AppError {
 }
 
 func (d RepositoryDb) QueryById() *errs.AppError {
-	logger.Info("Id Query worked")
+	//logger.Info("Id Query worked")
 
 	// Define the database and collection
 	collection := d.client.Database("productCatalog").Collection("ProductOffering")
