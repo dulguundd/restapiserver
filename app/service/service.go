@@ -2,6 +2,7 @@ package service
 
 import (
 	"github.com/dulguundd/logError-lib/errs"
+	"github.com/dulguundd/logError-lib/logger"
 	"restAPIServer/app/driven/mongo"
 	"restAPIServer/app/dto"
 )
@@ -21,7 +22,7 @@ func (s DefaultService) MongoList() *errs.AppError {
 }
 
 func (s DefaultService) MongoById() (dto.ProductOffering, *errs.AppError) {
-
+	logger.Info("This is service level log")
 	result, _ := s.repo.QueryById()
 	return result, nil
 }
