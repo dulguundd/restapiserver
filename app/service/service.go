@@ -2,13 +2,13 @@ package service
 
 import (
 	"github.com/dulguundd/logError-lib/errs"
-	"github.com/dulguundd/logError-lib/logger"
 	"restAPIServer/app/driven/mongo"
+	"restAPIServer/app/dto"
 )
 
 type Service interface {
 	MongoList() *errs.AppError
-	MongoById() *errs.AppError
+	MongoById() (dto.ProductOffering, *errs.AppError)
 }
 
 type DefaultService struct {
@@ -20,10 +20,10 @@ func (s DefaultService) MongoList() *errs.AppError {
 	return nil
 }
 
-func (s DefaultService) MongoById() *errs.AppError {
-	logger.Info("Id Query worked")
-	_ = s.repo.QueryById()
-	return nil
+func (s DefaultService) MongoById() (dto.ProductOffering, *errs.AppError) {
+
+	result, _ := s.repo.QueryById()
+	return result, nil
 }
 
 func NewService(repository mongo.Repository) DefaultService {

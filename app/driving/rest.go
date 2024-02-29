@@ -1,6 +1,7 @@
 package driving
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
 	"log"
@@ -36,4 +37,12 @@ func HeadersToString(headers http.Header) string {
 	}
 
 	return strings.Join(headerStrings, "\n")
+}
+
+func writeResponse(w http.ResponseWriter, code int, data interface{}) {
+	w.Header().Add("Content-Type", "application/json")
+	w.WriteHeader(code)
+	if err := json.NewEncoder(w).Encode(data); err != nil {
+		panic(err)
+	}
 }

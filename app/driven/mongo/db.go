@@ -1,8 +1,11 @@
 package mongo
 
-import "github.com/dulguundd/logError-lib/errs"
+import (
+	"github.com/dulguundd/logError-lib/errs"
+	"restAPIServer/app/dto"
+)
 
 type Repository interface {
 	Query() *errs.AppError
-	QueryById() *errs.AppError
+	QueryById() (dto.ProductOffering, *errs.AppError)
 }

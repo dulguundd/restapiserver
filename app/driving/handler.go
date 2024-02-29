@@ -74,7 +74,7 @@ func (h *Handlers) MongoTest(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handlers) MongoTestById(w http.ResponseWriter, r *http.Request) {
 	//startTime := time.Now()
-	_ = h.service.MongoById()
+	result, _ := h.service.MongoById()
 	//endTime := time.Now()
 	//executionTime := endTime.Sub(startTime)
 	w.Header().Add("Content-Type", "application/json")
@@ -84,4 +84,5 @@ func (h *Handlers) MongoTestById(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewEncoder(w).Encode(responseBody); err != nil {
 		panic(err)
 	}
+	writeResponse(w, http.StatusOK, result)
 }
