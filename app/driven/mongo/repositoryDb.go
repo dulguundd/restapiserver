@@ -3,6 +3,7 @@ package mongo
 import (
 	"context"
 	"github.com/dulguundd/logError-lib/errs"
+	"github.com/dulguundd/logError-lib/logger"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -56,15 +57,18 @@ func (d RepositoryDb) Query() *errs.AppError {
 	//for _, result := range results {
 	//	fmt.Printf("Id: %s, Name: %d, Status: %s\n", result.Id, result.Name, result.LifecycleStatus)
 	//}
-
+	//
 	// Close the cursor once finished
-	cursor.Close(context.Background())
+	err = cursor.Close(context.Background())
+	if err != nil {
+		return nil
+	}
 
 	return nil
 }
 
 func (d RepositoryDb) QueryById() (dto.ProductOffering, *errs.AppError) {
-	//logger.Info("Id Query worked")
+	logger.Info("Id Query worked")
 
 	// Define the database and collection
 	collection := d.client.Database("productCatalog").Collection("ProductOffering")

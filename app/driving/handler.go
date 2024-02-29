@@ -58,7 +58,7 @@ func getBody(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (h *Handlers) MongoTest(w http.ResponseWriter, r *http.Request) {
+func (h *Handlers) MongoTest(w http.ResponseWriter, _ *http.Request) {
 	startTime := time.Now()
 	_ = h.service.MongoList()
 	endTime := time.Now()
@@ -72,17 +72,16 @@ func (h *Handlers) MongoTest(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (h *Handlers) MongoTestById(w http.ResponseWriter, r *http.Request) {
-	//startTime := time.Now()
+func (h *Handlers) MongoTestById(w http.ResponseWriter, _ *http.Request) {
+	startTime := time.Now()
 	result, _ := h.service.MongoById()
-	//endTime := time.Now()
-	//executionTime := endTime.Sub(startTime)
+	endTime := time.Now()
+	executionTime := endTime.Sub(startTime)
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(200)
-	//log.Println("Hello world! /mongotest/id duration: ", executionTime)
-	responseBody := "Hello world! /mongotest/id duration: "
-	if err := json.NewEncoder(w).Encode(responseBody); err != nil {
+	log.Println("Hello world! /mongotest/id duration: ", executionTime)
+	//responseBody := "Hello world! /mongotest/id duration: "
+	if err := json.NewEncoder(w).Encode(result); err != nil {
 		panic(err)
 	}
-	writeResponse(w, http.StatusOK, result)
 }
