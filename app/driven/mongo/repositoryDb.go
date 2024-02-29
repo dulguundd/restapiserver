@@ -3,6 +3,7 @@ package mongo
 import (
 	"context"
 	"github.com/dulguundd/logError-lib/errs"
+	"github.com/dulguundd/logError-lib/logger"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -82,7 +83,7 @@ func (d RepositoryDb) QueryById() *errs.AppError {
 		log.Fatal(err)
 	}
 
-	log.Println("Id Query worked")
+	logger.Info("Id Query worked")
 
 	// Print the results
 	//fmt.Println("Results:")
