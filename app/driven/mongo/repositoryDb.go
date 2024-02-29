@@ -65,6 +65,8 @@ func (d RepositoryDb) Query() *errs.AppError {
 }
 
 func (d RepositoryDb) QueryById() *errs.AppError {
+	logger.Info("Id Query worked")
+
 	// Define the database and collection
 	collection := d.client.Database("productCatalog").Collection("ProductOffering")
 
@@ -82,8 +84,6 @@ func (d RepositoryDb) QueryById() *errs.AppError {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	logger.Info("Id Query worked")
 
 	// Print the results
 	//fmt.Println("Results:")
