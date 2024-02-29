@@ -8,6 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
+	"net/http"
 	"restAPIServer/app/dto"
 )
 
@@ -96,6 +97,26 @@ func (d RepositoryDb) QueryById() (*dto.ProductOffering, *errs.AppError) {
 	//}
 
 	return &results, nil
+}
+
+func (d RepositoryDb) QueryByIdFake() (*dto.ProductOffering, *errs.AppError) {
+	logger.Info("Rest called")
+
+	// URL of the REST API endpoint
+	url := "http://localhost:8081/home"
+
+	// Send GET request
+	resp, err := http.Get(url)
+	if err != nil {
+		log.Fatalf("Error sending request: %v", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		log.Fatalf("Error: Unexpected status code: %d", resp.StatusCode)
+	}
+
+	return nil, nil
 }
 
 func NewRepositoryDb(dbClient *mongo.Client) RepositoryDb {
