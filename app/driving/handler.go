@@ -2,6 +2,7 @@ package driving
 
 import (
 	"encoding/json"
+	"github.com/dulguundd/logError-lib/logger"
 	"log"
 	"net/http"
 	"restAPIServer/app/dto"
@@ -75,6 +76,7 @@ func (h *Handlers) MongoTest(w http.ResponseWriter, _ *http.Request) {
 func (h *Handlers) MongoTestById(w http.ResponseWriter, _ *http.Request) {
 	startTime := time.Now()
 	result, _ := h.service.MongoById()
+	logger.Info("This is driving log: " + result.Id)
 	endTime := time.Now()
 	executionTime := endTime.Sub(startTime)
 	w.Header().Add("Content-Type", "application/json")
