@@ -82,15 +82,16 @@ func (h *Handlers) MongoTestById(w http.ResponseWriter, _ *http.Request) {
 		if err := json.NewEncoder(w).Encode(err.Message); err != nil {
 			panic(err)
 		}
+	} else {
+		logger.Info("This is driving log: " + result.Id)
+		w.Header().Add("Content-Type", "application/json")
+		w.WriteHeader(200)
+		//responseBody := "Hello world! /mongotest/id duration: "
+		if err := json.NewEncoder(w).Encode(result); err != nil {
+			panic(err)
+		}
 	}
-	logger.Info("This is driving log: " + result.Id)
 	endTime := time.Now()
 	executionTime := endTime.Sub(startTime)
-	w.Header().Add("Content-Type", "application/json")
-	w.WriteHeader(200)
 	log.Println("Hello world! /mongotest/id duration: ", executionTime)
-	//responseBody := "Hello world! /mongotest/id duration: "
-	if err := json.NewEncoder(w).Encode(result); err != nil {
-		panic(err)
-	}
 }
