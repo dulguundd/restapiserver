@@ -83,6 +83,9 @@ func (h *Handlers) MongoTestById(w http.ResponseWriter, _ *http.Request) {
 			panic(err)
 		}
 	} else {
+		endTime := time.Now()
+		executionTime := endTime.Sub(startTime)
+		log.Println("Hello world! /mongotest/id duration: ", executionTime)
 		logger.Info("This is driving log: " + result.Id)
 		w.Header().Add("Content-Type", "application/json")
 		w.WriteHeader(200)
@@ -91,7 +94,4 @@ func (h *Handlers) MongoTestById(w http.ResponseWriter, _ *http.Request) {
 			panic(err)
 		}
 	}
-	endTime := time.Now()
-	executionTime := endTime.Sub(startTime)
-	log.Println("Hello world! /mongotest/id duration: ", executionTime)
 }
