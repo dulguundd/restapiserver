@@ -75,7 +75,7 @@ func (h *Handlers) MongoTest(w http.ResponseWriter, _ *http.Request) {
 
 func (h *Handlers) MongoTestById(w http.ResponseWriter, _ *http.Request) {
 	startTime := time.Now()
-	result, err := h.service.MongoById()
+	_, err := h.service.MongoById()
 	if err != nil {
 		w.Header().Add("Content-Type", "application/json")
 		w.WriteHeader(500)
@@ -86,11 +86,11 @@ func (h *Handlers) MongoTestById(w http.ResponseWriter, _ *http.Request) {
 		endTime := time.Now()
 		executionTime := endTime.Sub(startTime)
 		log.Println("Hello world! /mongotest/id duration: ", executionTime)
-		logger.Info("This is driving log: " + result.Id)
+		logger.Info("This is driving log: " + "0")
 		w.Header().Add("Content-Type", "application/json")
 		w.WriteHeader(200)
-		//responseBody := "Hello world! /mongotest/id duration: "
-		if err := json.NewEncoder(w).Encode(result); err != nil {
+		responseBody := "Hello world! /mongotest/id duration: "
+		if err := json.NewEncoder(w).Encode(responseBody); err != nil {
 			panic(err)
 		}
 	}
