@@ -27,11 +27,11 @@ func (d RepositoryDb) Query() *errs.AppError {
 	findOptions.SetLimit(10)
 
 	// Count documents
-	count, err := collection.CountDocuments(context.Background(), filter)
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Println("query count: ", count)
+	//count, err := collection.CountDocuments(context.Background(), filter)
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//log.Println("query count: ", count)
 
 	// Define a slice to store the results
 	var results []dto.ProductOffering

@@ -23,11 +23,11 @@ func (s DefaultService) MongoList() *errs.AppError {
 
 func (s DefaultService) MongoById() (*dto.ProductOffering, *errs.AppError) {
 	logger.Info("This is service level log")
-	_, err := s.repo.QueryByIdFake()
+	result, err := s.repo.QueryById()
 	if err != nil {
 		return nil, err
 	}
-	return nil, nil
+	return result, nil
 }
 
 func NewService(repository mongo.Repository) DefaultService {
