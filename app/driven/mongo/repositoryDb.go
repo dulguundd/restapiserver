@@ -24,7 +24,7 @@ func (d RepositoryDb) Query() *errs.AppError {
 	filter := bson.M{"lifecycleStatus": "Active"}
 
 	findOptions := options.Find()
-	findOptions.SetLimit(10)
+	findOptions.SetLimit(50)
 
 	// Count documents
 	//count, err := collection.CountDocuments(context.Background(), filter)
