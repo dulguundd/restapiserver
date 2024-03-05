@@ -20,6 +20,7 @@ func Start(path string) {
 	h := Handlers{service.NewService(repositoryDb)}
 
 	router.HandleFunc("/home", home).Methods(http.MethodGet)
+	router.HandleFunc("/home", home).Methods(http.MethodPost)
 	router.HandleFunc("/api/1.0/users", getBody).Methods(http.MethodPost)
 	router.HandleFunc("/mongotest", h.MongoTest).Methods(http.MethodGet)
 	router.HandleFunc("/mongotest/id", h.MongoTestById).Methods(http.MethodGet)
